@@ -95,8 +95,13 @@
             <!-- Afficher ici le numéro de téléphone qui s'affiche au fur et à mesure de la saisie-->
 
             <p>Votre numéro : <?= $_GET['numero'] ?></p>
-            <a href="?question=5&result=<?= $_GET['result'] ?>&numero=<?= $_GET['numero'] ?>" role="button" class="btn btn-success">Valider</a> <!-- Validation du numéro de téléphone -->
-            
+            <?php       
+                if(strlen($_GET['numero']) == 10 ) { 
+            ?> 
+                <a href="?question=5&result=<?= $_GET['result'] ?>&numero=<?= $_GET['numero'] ?>" role="button" class="btn btn-success">Valider</a> <!-- Validation du numéro de téléphone -->
+            <?php
+                }      
+            ?> 
             <!-- Mes boutons-->
             <br><br>
             <a href="?question=5&result=<?= $_GET['result'] ?>" role="button" class="btn btn-secondary">Ne pas être rappelé</a>
