@@ -76,36 +76,32 @@
             
         <!-- Etape 4 : A afficher uniquement si "non" a été répondu à l'étape 3 -->
         <?php 
-            $numero = "0711111111";
+            $_GET['numero'] = isset($_GET['numero']) ? $_GET['numero'] : '';
             if(isset($_GET['question']) && $_GET['question'] == 4){   
         ?>  
-        <p>Votre problème n'a pas été résolu.</p>
-        <p>Pour être rappelé, entrez votre numéro de téléphone dans le clavier virtuel et validez :</p>
-        <!-- Coder ici un clavier numérique permettant de saisir le numéro de téléphone -->
-        <a href="" role="button" class="btn btn-secondary">1</a> 
-        <a href="" role="button" class="btn btn-secondary">2</a> 
-        <a href="" role="button" class="btn btn-secondary">3</a> 
-        <a href="" role="button" class="btn btn-secondary">4</a> 
-        <a href="" role="button" class="btn btn-secondary">5</a> 
-        <br>
-        <a href="" role="button" class="btn btn-secondary">6</a> 
-        <a href="" role="button" class="btn btn-secondary">7</a> 
-        <a href="" role="button" class="btn btn-secondary">8</a> 
-        <a href="" role="button" class="btn btn-secondary">9</a> 
-        <a href="" role="button" class="btn btn-secondary">0</a> 
-        <br>
+            <p>Votre problème n'a pas été résolu.</p>
+            <p>Pour être rappelé, entrez votre numéro de téléphone dans le clavier virtuel et validez :</p>
+            <!-- Coder ici un clavier numérique permettant de saisir le numéro de téléphone -->
+            <?php
+            for ($i = 0; $i <=9; $i++) {
+            ?>
+                <a href="?question=4&result=<?= $_GET['result'] ?>&numero=<?= $_GET['numero'] . $i ?>" role="button" class="btn btn-secondary"><?= $i ?></a> 
+            <?php
+                }
+            ?>
+            <br>
 
 
-        <!-- Afficher ici le numéro de téléphone qui s\'affiche au fur et à mesure de la saisie-->
+            <!-- Afficher ici le numéro de téléphone qui s'affiche au fur et à mesure de la saisie-->
 
-        <p>Votre numéro : '.$numero.'</p>
-        <a href="?question=5&result=<?= $_GET['result'] ?>" role="button" class="btn btn-success">Valider</a> <!-- Validation du numéro de téléphone -->
-        
-        <!-- Mes boutons-->
-        <br><br>
-        <a href="?question=5&result=<?= $_GET['result'] ?>" role="button" class="btn btn-secondary">Ne pas être rappelé</a>
-        <a href="" role="button" class="btn btn-secondary">Réinitialisation</a> 
-        <a href="" role="button" class="btn btn-secondary">Correction</a>
+            <p>Votre numéro : <?= $_GET['numero'] ?></p>
+            <a href="?question=5&result=<?= $_GET['result'] ?>&numero=<?= $_GET['numero'] ?>" role="button" class="btn btn-success">Valider</a> <!-- Validation du numéro de téléphone -->
+            
+            <!-- Mes boutons-->
+            <br><br>
+            <a href="?question=5&result=<?= $_GET['result'] ?>" role="button" class="btn btn-secondary">Ne pas être rappelé</a>
+            <a href="?question=4&result=<?= $_GET['result'] ?>&numero=<?= '' ?>" role="button" class="btn btn-secondary">Réinitialisation</a> 
+            <a href="?question=4&result=<?= $_GET['result'] ?>&numero=<?= substr($_GET['numero'], 0, -1) ?>" role="button" class="btn btn-secondary">Correction</a>
         <?php 
             }
         ?>
@@ -128,6 +124,13 @@
             <p class="mt-5">Merci pour votre notation : <?= $ratings ?> </p> <!-- le nombre d\'étoiles représente le nombre de points cumulés -->
 
             <!-- Si un téléphone à été saisi, afficher "Vous serez rappelé très prochainement au #numéro de téléphone#" -->
+        <?php       
+            if(isset($_GET['numero']) &&  $_GET['numero'] != '' ) { 
+        ?> 
+            <p>Vous serez rappelé très prochainement au <?= $_GET['numero'] ?></p>
+        <?php
+            }      
+        ?> 
             <p class="mt-5">
                 <a href="?" role="button" class="btn btn-danger">Recommencer</a>
             </p>
